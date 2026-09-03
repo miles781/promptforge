@@ -1,71 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="PromptForge — rewrite prompts for clarity, quality and token efficiency." />
-  <title>PromptForge — AI Prompt Editor</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="PromptForge helps you rewrite prompts for clarity, quality and token efficiency."
+    >
+
+    <title>PromptForge — AI Prompt Optimizer</title>
+
+    <link rel="stylesheet" href="styles.css">
 </head>
+ <!-- API Settings Modal -->
+<div id="settingsModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <span class="section-label">CONFIGURATION</span>
+
+                <h2>API Settings</h2>
+            </div>
+
+            <button id="closeModal" class="close-button">
+                ×
+            </button>
+
+        </div>
+
+
+        <p class="modal-description">
+            Add your OpenRouter API key to enable real AI
+            prompt optimization.
+        </p>
+
+
+        <label for="apiKey">
+            OpenRouter API Key
+        </label>
+
+        <input
+            type="password"
+            id="apiKey"
+            placeholder="sk-or-v1-..."
+        >
+
+
+        <p class="security-note">
+            Your API key is stored locally in your browser
+            and is not included in the project files.
+        </p>
+
+
+        <div class="modal-actions">
+
+            <button id="saveApiKey" class="primary-button">
+                Save API Key. 
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 <body>
-  <header class="navbar">
-    <a class="brand" href="#">Prompt<span>Forge</span></a>
-    <button id="settingsBtn" class="ghost-btn" type="button">API Settings</button>
-  </header>
 
-  <main class="container">
-    <section class="hero">
-      <p class="eyebrow">AI PROMPT EDITOR</p>
-      <h1>Write less. <span>Prompt better.</span></h1>
-      <p class="hero-copy">Turn rough prompts into clear, effective instructions while removing unnecessary words and token waste.</p>
-    </section>
+    <!-- Navigation -->
+    <header class="navbar">
 
-    <section class="editor-card">
-      <div class="toolbar">
-        <div>
-          <label for="goal">Optimization goal</label>
-          <select id="goal">
-            <option value="balanced">Balanced</option>
-            <option value="quality">Maximum quality</option>
-            <option value="tokens">Maximum token efficiency</option>
-          </select>
+        <a href="#" class="logo">
+            Prompt<span>Forge</span>
+        </a>
+
+        <nav>
+    <a href="#editor">Editor</a>
+    <a href="#features">Features</a>
+    <a href="#about">About</a>
+
+    <button id="settingsBtn" class="settings-button">
+        ⚙ Settings
+    </button>
+</nav>
+
+    </header>
+
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Hero -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <span class="badge">
+                    AI Prompt Optimization
+                </span>
+
+                <h1>
+                    Write better prompts.
+                    <span>Get better results.</span>
+                </h1>
+
+                <p>
+                    Transform rough ideas into clear, structured and
+                    token-efficient prompts designed to get better
+                    results from AI.
+                </p>
+
+                <a href="#editor" class="hero-button">
+                    Start Optimizing
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- Editor -->
+        <section class="editor-section" id="editor">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">PROMPT EDITOR</span>
+
+                    <h2>
+                        Optimize your prompt
+                    </h2>
+                </div>
+
+                <p>
+                    Give PromptForge your rough idea and let AI
+                    improve it.
+                </p>
+
+            </div>
+
+
+            <div class="editor">
+
+                <!-- Input -->
+                <div class="editor-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <span class="card-number">01</span>
+                            <h3>Your Prompt</h3>
+                        </div>
+
+                        <span class="status">
+                            Input
+                        </span>
+
+                    </div>
+
+
+                    <textarea
+                        id="prompt"
+                        placeholder="Example: Create a website for a restaurant..."
+                    ></textarea>
+
+
+                    <div class="input-footer">
+
+                        <span id="characterCount">
+                            0 characters
+                        </span>
+
+                        <button
+                            id="clearBtn"
+                            class="text-button"
+                        >
+                            Clear
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Output -->
+                <div class="editor-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <span class="card-number">02</span>
+                            <h3>Optimized Prompt</h3>
+                        </div>
+
+                        <span class="status">
+                            Output
+                        </span>
+
+                    </div>
+
+
+                    <textarea
+                        id="result"
+                        placeholder="Your optimized prompt will appear here..."
+                        readonly
+                    ></textarea>
+
+
+                    <div class="output-footer">
+
+                        <span id="tokenEstimate">
+                            Estimated tokens: —
+                        </span>
+
+                        <button
+                            id="copyBtn"
+                            class="text-button"
+                        >
+                            Copy
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Controls -->
+            <div class="optimization-controls">
+
+                <div class="control-group">
+
+                    <label for="goal">
+                        Optimization Goal
+                    </label>
+
+                    <select id="goal">
+
+                        <option value="balanced">
+                            Balanced
+                        </option>
+
+                        <option value="quality">
+                            Better Quality
+                        </option>
+
+                        <option value="tokens">
+                            Token Efficient
+                        </option>
+
+                        <option value="clarity">
+                            More Clear
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    id="rewriteBtn"
+                    class="primary-button"
+                >
+                    <span>✦</span>
+                    Rewrite Prompt
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Features -->
+        <section
+            class="features-section"
+            id="features"
+        >
+
+            <div class="section-heading centered">
+
+                <span class="section-label">
+                    WHY PROMPTFORGE
+                </span>
+
+                <h2>
+                    Better prompts, less effort.
+                </h2>
+
+                <p>
+                    PromptForge focuses on the things that make
+                    AI instructions more effective.
+                </p>
+
+            </div>
+
+
+            <div class="features-grid">
+
+                <article class="feature-card">
+
+                    <div class="feature-icon">
+                        ✦
+                    </div>
+
+                    <h3>
+                        Better Quality
+                    </h3>
+
+                    <p>
+                        Improve vague instructions by adding
+                        useful context, structure and constraints.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon">
+                        Aa
+                    </div>
+
+                    <h3>
+                        Clearer Prompts
+                    </h3>
+
+                    <p>
+                        Turn confusing ideas into concise and
+                        easy-to-understand instructions.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon">
+                        ↗
+                    </div>
+
+                    <h3>
+                        Token Efficient
+                    </h3>
+
+                    <p>
+                        Remove unnecessary words while preserving
+                        the meaning and intent of your prompt.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- About -->
+        <section class="about-section" id="about">
+
+            <div>
+
+                <span class="section-label">
+                    ABOUT
+                </span>
+
+                <h2>
+                    Built for people who work with AI.
+                </h2>
+
+            </div>
+
+            <p>
+                PromptForge is a simple prompt engineering tool
+                created to help users get more useful results
+                from modern AI models without having to become
+                prompt engineering experts.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="logo">
+            Prompt<span>Forge</span>
         </div>
-        <button id="rewriteBtn" class="primary-btn" type="button">Rewrite Prompt</button>
-      </div>
 
-      <div class="editor-grid">
-        <div class="panel">
-          <div class="panel-heading"><span>Your prompt</span><span id="inputCount">0 tokens est.</span></div>
-          <textarea id="promptInput" placeholder="Example: Make me a website for a restaurant. It should look really nice and have a menu and contact section..."></textarea>
-        </div>
-        <div class="panel output-panel">
-          <div class="panel-heading"><span>Optimized prompt</span><button id="copyBtn" class="copy-btn" type="button">Copy</button></div>
-          <textarea id="promptOutput" readonly placeholder="Your improved prompt will appear here..."></textarea>
-        </div>
-      </div>
-      <p id="status" class="status" aria-live="polite"></p>
-    </section>
+        <p>
+            Built with HTML, CSS, JavaScript, AI, Git & GitHub.
+        </p>
 
-    <section class="features">
-      <article><div class="icon">✦</div><h3>Clearer</h3><p>Removes ambiguity and gives the model a stronger objective.</p></article>
-      <article><div class="icon">⌁</div><h3>Token efficient</h3><p>Compresses repetitive language without losing important context.</p></article>
-      <article><div class="icon">✓</div><h3>Practical</h3><p>Produces prompts you can copy and use immediately.</p></article>
-    </section>
-  </main>
+    </footer>
 
-  <dialog id="settingsDialog">
-    <form method="dialog" class="settings-card" id="settingsForm">
-      <button class="close-btn" value="cancel" aria-label="Close">×</button>
-      <p class="eyebrow">OPTIONAL</p>
-      <h2>API Settings</h2>
-      <p>Enter an OpenRouter API key to enable live AI rewriting. The key is stored only in your browser.</p>
-      <label for="apiKey">OpenRouter API key</label>
-      <input id="apiKey" type="password" autocomplete="off" placeholder="sk-or-..." />
-      <div class="settings-actions"><button value="cancel" class="ghost-btn">Cancel</button><button id="saveKey" value="default" class="primary-btn">Save key</button></div>
-    </form>
-  </dialog>
 
-  <footer><p>PromptForge · Built with HTML, CSS, JavaScript & AI</p></footer>
-  <script src="script.js"></script>
+    <script src="script.js"></script>
+
 </body>
 </html>
