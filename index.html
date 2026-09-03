@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PromptForge — rewrite prompts for clarity, quality and token efficiency." />
+  <title>PromptForge — AI Prompt Editor</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <a class="brand" href="#">Prompt<span>Forge</span></a>
+    <button id="settingsBtn" class="ghost-btn" type="button">API Settings</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">AI PROMPT EDITOR</p>
+      <h1>Write less. <span>Prompt better.</span></h1>
+      <p class="hero-copy">Turn rough prompts into clear, effective instructions while removing unnecessary words and token waste.</p>
+    </section>
+
+    <section class="editor-card">
+      <div class="toolbar">
+        <div>
+          <label for="goal">Optimization goal</label>
+          <select id="goal">
+            <option value="balanced">Balanced</option>
+            <option value="quality">Maximum quality</option>
+            <option value="tokens">Maximum token efficiency</option>
+          </select>
+        </div>
+        <button id="rewriteBtn" class="primary-btn" type="button">Rewrite Prompt</button>
+      </div>
+
+      <div class="editor-grid">
+        <div class="panel">
+          <div class="panel-heading"><span>Your prompt</span><span id="inputCount">0 tokens est.</span></div>
+          <textarea id="promptInput" placeholder="Example: Make me a website for a restaurant. It should look really nice and have a menu and contact section..."></textarea>
+        </div>
+        <div class="panel output-panel">
+          <div class="panel-heading"><span>Optimized prompt</span><button id="copyBtn" class="copy-btn" type="button">Copy</button></div>
+          <textarea id="promptOutput" readonly placeholder="Your improved prompt will appear here..."></textarea>
+        </div>
+      </div>
+      <p id="status" class="status" aria-live="polite"></p>
+    </section>
+
+    <section class="features">
+      <article><div class="icon">✦</div><h3>Clearer</h3><p>Removes ambiguity and gives the model a stronger objective.</p></article>
+      <article><div class="icon">⌁</div><h3>Token efficient</h3><p>Compresses repetitive language without losing important context.</p></article>
+      <article><div class="icon">✓</div><h3>Practical</h3><p>Produces prompts you can copy and use immediately.</p></article>
+    </section>
+  </main>
+
+  <dialog id="settingsDialog">
+    <form method="dialog" class="settings-card" id="settingsForm">
+      <button class="close-btn" value="cancel" aria-label="Close">×</button>
+      <p class="eyebrow">OPTIONAL</p>
+      <h2>API Settings</h2>
+      <p>Enter an OpenRouter API key to enable live AI rewriting. The key is stored only in your browser.</p>
+      <label for="apiKey">OpenRouter API key</label>
+      <input id="apiKey" type="password" autocomplete="off" placeholder="sk-or-..." />
+      <div class="settings-actions"><button value="cancel" class="ghost-btn">Cancel</button><button id="saveKey" value="default" class="primary-btn">Save key</button></div>
+    </form>
+  </dialog>
+
+  <footer><p>PromptForge · Built with HTML, CSS, JavaScript & AI</p></footer>
+  <script src="script.js"></script>
+</body>
+</html>
